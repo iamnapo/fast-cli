@@ -1,7 +1,7 @@
 'use strict';
 /* eslint-env browser */
 const {isDeepStrictEqual} = require('util');
-const puppeteer = require('puppeteer');
+const {chromium} = require('playwright-chromium');
 const Observable = require('zen-observable');
 const delay = require('delay');
 
@@ -45,7 +45,7 @@ module.exports = options => (
 	new Observable(observer => {
 		// Wrapped in async IIFE as `new Observable` can't handle async function
 		(async () => {
-			const browser = await puppeteer.launch({args: ['--no-sandbox']});
+			const browser = await chromium.launch({args: ['--no-sandbox']});
 			const page = await browser.newPage();
 			await page.goto('https://fast.com');
 			await init(browser, page, observer, options);
